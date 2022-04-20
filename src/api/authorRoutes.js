@@ -5,7 +5,7 @@ const { dbClient } = require('../config');
 const authorRoutes = express.Router();
 
 // routes
-// POST /api/author - sukurima nauja autoriu
+// POST /api/author - sukuria nauja autoriu
 authorRoutes.post('/author', async (req, res) => {
   try {
     // prisijungti
@@ -32,8 +32,7 @@ authorRoutes.post('/author', async (req, res) => {
   }
 });
 
-// GET /api/author gauti visus autorius
-
+// GET /api/author - gauti visus autorius
 authorRoutes.get('/author', async (req, res) => {
   try {
     // prisijungti
@@ -45,7 +44,7 @@ authorRoutes.get('/author', async (req, res) => {
     const allAuthorsArr = await collection.find().toArray();
     res.status(200).json(allAuthorsArr);
   } catch (error) {
-    console.error('error in getting all books', error);
+    console.error('error in getting all authors', error);
     res.status(500).json('something is wrong');
   } finally {
     // uzdaryti prisijungima
@@ -53,6 +52,33 @@ authorRoutes.get('/author', async (req, res) => {
   }
 });
 
-// GET /api/author/:authorId - gauti konkretu autoriu
+// GET /api/author/:authorId    gauti konkretu autoriu
+
+// PATCH /api/author/:authorId - atnaujinti varda
+authorRoutes.patch('/author/:authorId', async (req, res) => {
+  // updateOne({filterObj/query}, {$set: {name: 'James'}})
+  try {
+    const { authorId } = req.params;
+    const { newName } = req.body;
+    // prisijungti
+    await dbClient.connect();
+    // atlikti veiksma
+    console.log('connected');
+    // atnaujinti varda
+    const collection = dbClient.db('library').collection('authors');
+    const updateRezult = await collection.updateOne({ _id: ObjectId(authorId) }, { $set: { name: newName } });
+    res.status(200).json(updateRezult);
+  } catch (error) {
+    console.error('error in updating author name authors', error);
+    res.status(500).json('something is wrong');
+  } finally {
+    // uzdaryti prisijungima
+    await dbClient.close();
+  }
+});
+// {newName: 'James bk1'}
+
+// PATCH /api/author/add-book/:authorId - prideda
+// viena knyga i autoriaus kurios id === authorId bookId masyva
 
 module.exports = authorRoutes;

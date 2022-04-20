@@ -1,18 +1,22 @@
+### BOOKS
 GET http://localhost:3000/api/book
+### SINGLE BOOK
+GET http://localhost:3000/api/book/625e5f11a96b6c03f26d9afc
+
+### DELETE BOOK
+DELETE http://localhost:3000/api/book/625fb4ce7269a27f25cb30ee
 ###
 POST http://localhost:3000/api/book
-
 Content-Type: application/json
 
 {
-    "title": "Book 3",
+    "title": "Book 15",
     "year": 2015,
-    "rating": 1
+    "rating": 3
 }
 
 ###
 POST http://localhost:3000/api/author
-
 Content-Type: application/json
 
 {
@@ -22,9 +26,17 @@ Content-Type: application/json
 }
 
 ###
+###
+PATCH http://localhost:3000/api/author/625fba177819dc12c569f67f
+Content-Type: application/json
+
+{
+"newName": "James bk1"
+}  
+
+###
 GET http://localhost:3000/api/author
 ###
 GET http://localhost:3000/api/book-authors
 ###
-
 GET http://localhost:3000/api/book-agg2
