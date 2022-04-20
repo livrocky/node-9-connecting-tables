@@ -25,3 +25,6 @@ Content-Type: application/json
 GET http://localhost:3000/api/author
 ###
 GET http://localhost:3000/api/book-authors
+###
+
+GET http://localhost:3000/api/book-agg2
