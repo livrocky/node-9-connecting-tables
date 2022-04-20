@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const BASE_URL = 'http://localhost:3000/api';
 console.log('front.js');
 

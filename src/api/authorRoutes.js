@@ -66,6 +66,7 @@ authorRoutes.patch('/author/:authorId', async (req, res) => {
     console.log('connected');
     // atnaujinti varda
     const collection = dbClient.db('library').collection('authors');
+    // eslint-disable-next-line max-len
     const updateRezult = await collection.updateOne({ _id: ObjectId(authorId) }, { $set: { name: newName } });
     res.status(200).json(updateRezult);
   } catch (error) {
